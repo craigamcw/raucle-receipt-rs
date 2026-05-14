@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        rust: [stable, "1.74"]
+        # MSRV (1.85) + current stable. Tracking just-the-MSRV catches
+        # unintentional bumps; tracking stable catches new lints.
+        rust: ["1.85", stable]
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@master

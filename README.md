@@ -13,7 +13,7 @@ Every step in a multi-agent / multi-tool LLM workflow can emit a signed receipt 
 - **Spec version**: `raucle-provenance-receipt/v1`
 - **Crypto**: Ed25519 (`ed25519-dalek` 2.x), compact JWS (RFC 7515)
 - **Dependencies**: only what Rust requires for Ed25519 + JSON — `ed25519-dalek`, `sha2`, `serde_json`, `base64`, `pkcs8`, `rand_core`. No transitive policy traps.
-- **MSRV**: Rust 1.74
+- **MSRV**: Rust 1.85 (driven by transitive dep `base64ct` requiring edition 2024)
 - **License**: MIT
 
 ## Install

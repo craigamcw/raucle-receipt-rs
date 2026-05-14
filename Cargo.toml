@@ -2,7 +2,7 @@
 name = "raucle-receipt"
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.74"
+rust-version = "1.85"
 authors = ["Raucle"]
 license = "MIT"
 description = "Rust reference implementation of the Raucle Provenance Receipt v1 spec — cryptographic chain-of-custody for AI workflows"
