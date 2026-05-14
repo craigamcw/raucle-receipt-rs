@@ -1,0 +1,37 @@
+[package]
+name = "raucle-receipt"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+authors = ["Raucle"]
+license = "MIT"
+description = "Rust reference implementation of the Raucle Provenance Receipt v1 spec — cryptographic chain-of-custody for AI workflows"
+homepage = "https://raucle.com/spec/provenance/v1"
+repository = "https://github.com/craigamcw/raucle-receipt-rs"
+documentation = "https://docs.rs/raucle-receipt"
+readme = "README.md"
+keywords = ["llm", "ai-security", "provenance", "ed25519", "jws"]
+categories = ["cryptography", "authentication"]
+
+[dependencies]
+# Ed25519 signing / verification — RustCrypto, audited, no_std-capable.
+# The "pem" feature gives us PEM key (de)serialisation; "pkcs8" handles
+# the SubjectPublicKeyInfo / PKCS8 PrivateKeyInfo envelopes.
+ed25519-dalek = { version = "2.1", features = ["pem", "pkcs8", "rand_core"] }
+# pkcs8 is already in the tree via ed25519-dalek; expose it directly so we
+# can reach LineEnding for PEM serialisation. Zero extra cost.
+pkcs8 = { version = "0.10", features = ["pem"] }
+# SHA-256 — RustCrypto.
+sha2 = "0.10"
+# Base64url — small, audited.
+base64 = "0.22"
+# JSON parsing for inbound JWS payloads. Canonical-output serialisation is
+# hand-written below since serde_json does not satisfy the spec's
+# sort-keys / ensure_ascii=False requirements.
+serde_json = "1"
+# Random source for keypair generation. Wraps OsRng.
+rand_core = { version = "0.6", features = ["getrandom"] }
+
+[dev-dependencies]
+# No test-only deps — the conformance tests use the std lib + serde_json
+# already pulled in above.
